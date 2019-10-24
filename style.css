@@ -1,0 +1,16 @@
+body,
+html {
+    width: 100%;
+    height: 100%;
+}
+#learning1 {
+    background-color: #2baa5e;
+}
+
+#learning2{
+    background-color: #c95ac5;
+}
+
+#learning3{
+    background-color: #dd4d31;
+}

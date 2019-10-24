@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- p5js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Teachable Arm</title>
+</head>
+
+<body>
+    
+    <div class="fluid-container">
+        <h1 class="text-center">Teachable Arm</h1>
+        <div class="row justify-content-center">
+        <div id="video" class="m-2"></div>
+        </div>
+        <div class="row">
+            <button id="learning1" class="btn col">학습하기1</button>
+            <div class="d-block d-sm-none col">확신도:</div>
+            <button id="learning2" class="btn mx-1 col">학습하기2</button>
+            <div class="d-block d-sm-none col">확신도:</div>
+            <button id="learning3" class="btn col">학습하기3</button>
+            <div class="d-block d-sm-none col">확신도:</div>
+            <div class="w-100"></div>
+            <h3 class="text-center col d-none d-sm-block">학습한 데이터 수 :</h3>
+            <h3 class="text-center col d-none d-sm-block">학습한 데이터 수 :</h3>
+            <h3 class="text-center col d-none d-sm-block">학습한 데이터 수 :</h3>
+            <div class="w-100"></div>
+            <h3 class="text-center col d-none d-sm-block">확신도(Confidence)</h3>
+            <h3 class="text-center col d-none d-sm-block">확신도(Confidence)</h3>
+            <h3 class="text-center col d-none d-sm-block">확신도(Confidence)</h3>
+        </div>
+        <script src="./sketch.js"></script>
+</body>
+
+</html>
