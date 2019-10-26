@@ -17,16 +17,17 @@
     <!-- p5js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+    <script src="https://unpkg.com/ml5@0.4.1/dist/ml5.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>Teachable Arm</title>
 </head>
 
 <body>
-    
+    <script src="./sketch.js"></script>
     <div class="fluid-container">
         <h1 class="text-center">Teachable Arm</h1>
         <div class="row justify-content-center">
-        <div id="video" class="m-2"></div>
+        <div id="videoDiv" class="m-2"></div>
         </div>
         <div class="row">
             <button id="learning1" class="btn col">학습하기1</button>
@@ -36,15 +37,15 @@
             <button id="learning3" class="btn col">학습하기3</button>
             <div class="d-block d-sm-none col">확신도:</div>
             <div class="w-100"></div>
-            <h3 class="text-center col d-none d-sm-block">학습한 데이터 수 :</h3>
-            <h3 class="text-center col d-none d-sm-block">학습한 데이터 수 :</h3>
-            <h3 class="text-center col d-none d-sm-block">학습한 데이터 수 :</h3>
+            <h5 class="text-center col d-none d-sm-block">학습한 데이터 수 :</h3>
+            <h5 class="text-center col d-none d-sm-block">학습한 데이터 수 :</h3>
+            <h5 class="text-center col d-none d-sm-block">학습한 데이터 수 :</h3>
             <div class="w-100"></div>
             <h3 class="text-center col d-none d-sm-block">확신도(Confidence)</h3>
             <h3 class="text-center col d-none d-sm-block">확신도(Confidence)</h3>
             <h3 class="text-center col d-none d-sm-block">확신도(Confidence)</h3>
         </div>
-        <script src="./sketch.js"></script>
+        
 </body>
 
 </html>
