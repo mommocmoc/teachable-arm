@@ -1,11 +1,14 @@
 var logits = new Array(3);
 let buttons;
+let confidences;
+
 let video;
 let features;
 let knn;
 let labelP;
 
 function setup() {
+  let colors = [color(52, 235, 94), color(235, 52, 232), color(235, 73, 52)];
   var canvas = createCanvas(320, 240);
   //canvas.parent("videoDiv");
   video = createCapture(VIDEO);
@@ -20,9 +23,20 @@ function setup() {
   buttons[0].mousePressed(learningA);
   buttons[1].mousePressed(learningB);
   buttons[2].mousePressed(learningC);
-  let result = createButton("Result");
-  result.mousePressed(resultEvent);
-  labelP = createP("학습데이터가 필요합니다!")
+
+  confidences = selectAll(".inner");
+  
+  for (let index = 0; index < confidences.length; index++) {
+      const element = confidences[index];
+      element.style('background-color',colors[index]);
+      element.style("background-width", '0%');
+      
+  }
+
+  //   let result = createButton("Result");
+  //   result.mousePressed(resultEvent);
+  //   result.hide();
+  labelP = createP("학습데이터가 필요합니다!");
 }
 
 //  features.infer(video);
@@ -55,15 +69,15 @@ function gotResult(err, result) {
 }
 function goClassify() {
   const logits = features.infer(video);
-  
-    knn.classify(logits, function(err, result) {
-      if (err) {
-        console.error(err);
-      } else {
-        labelP.html(result.label + " " + result.confidencesByLabel[result.label]);
-        goClassify();
-      }
-    });
+
+  knn.classify(logits, function(err, result) {
+    if (err) {
+      console.error(err);
+    } else {
+      labelP.html(result.label + " " + result.confidencesByLabel[result.label]);
+      goClassify();
+    }
+  });
 }
 
 function resultEvent() {
@@ -77,6 +91,6 @@ function resultEvent() {
 function draw() {
   image(video, 0, 0);
   if (knn.getNumLabels() > 0) {
-  goClassify();
+    goClassify();
   }
 }
