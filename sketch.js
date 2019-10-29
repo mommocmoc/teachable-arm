@@ -1,7 +1,7 @@
 var logits = new Array(3);
 let buttons;
 let confidences;
-
+let learningNumbers=[0,0,0];
 let video;
 let features;
 let knn;
@@ -102,17 +102,20 @@ function modelReady() {
 function learningA() {
   const currentVideo = features.infer(video);
   knn.addExample(currentVideo, "ClassA");
-  console.log("클래스 A 학습");
+  console.log(learningNumbers);
+  learningNumbers[0]++;
 }
 function learningB() {
   const currentVideo = features.infer(video);
   knn.addExample(currentVideo, "ClassB");
-  console.log("클래스 B 학습");
+  console.log(learningNumbers);
+  learningNumbers[1]++;
 }
 function learningC() {
   const currentVideo = features.infer(video);
   knn.addExample(currentVideo, "ClassC");
-  console.log("클래스 C 학습");
+  console.log(learningNumbers);
+  learningNumbers[2]++;
 }
 function gotResult(err, result) {
   if (err) {
@@ -130,7 +133,7 @@ function goClassify() {
       console.error(err);
     } else {
       labelP.html(result.label + " " + result.confidencesByLabel[result.label]);
-      //레이블 값에 따라 마이크로비트에 시리얼 값 보내기
+      //레이블 값에 따라 마이크로비트에 시리얼 값 보내기 A:0 , B:1, C:2
       if (
         result.label === "ClassA" &&
         result.confidencesByLabel["ClassA"] >= 1.0 &&
