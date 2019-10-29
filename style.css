@@ -3,20 +3,27 @@ html {
   width: 100%;
   height: 100%;
 }
+
 #learning1 {
   background-color: #2baa5e;
+}
+
+#learning1:hover {
+  background-color: #218a4b;
 }
 
 #learning2 {
   background-color: #c95ac5;
 }
 
+#learning2:hover {
+  background-color: #a34ba0;
+}
+
 #learning3 {
   background-color: #dd4d31;
 }
-.inner {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: #00ff00;
+
+#learning3:hover {
+  background-color: #ad3f28;
 }

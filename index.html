@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" />
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- Popper JS -->
@@ -18,37 +19,51 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
     <script src="https://unpkg.com/ml5@0.4.1/dist/ml5.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <title>Teachable Arm</title>
-</head>
+  </head>
 
-<body>
+  <body>
+      <h1 class="text-center">Teachable Arm</h1>
+    <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">마이크로비트를 연동해주세요!</h4>
+      <p>마이크로비트 연동하기 버튼을 눌러서 마이크로 비트를 연동해주세요.</p>
+      <hr />
+      <p class="mb-0">
+        마이크로비트 연동하기를 하지않으면 학습하기 버튼을 누를 수 없습니다!
+      </p>
+    </div>
     <script src="./sketch.js"></script>
+    <h5 class="text-center">중등자유학기제- 인공지능 로봇팔과 함께 춤을</h5>
+    <div class="container" id="usb-part">
+      <button id="selectUSB" class="col btn btn-info m-1">
+        마이크로 비트 연동하기
+      </button>
+      <p id="selectedDeviceInfo" class="col text-center">연결된 장치 없음</p>
+    </div>
     <div class="fluid-container">
-        <h1 class="text-center">Teachable Arm</h1>
-        <div class="row justify-content-center">
+      <div class="row justify-content-center">
         <div id="videoDiv" class="m-2"></div>
-        </div>
-        <div class="row">
-            <button id="learning1" class="btn col">학습하기1</button>
-            <div class="d-block d-sm-none col">확신도:</div>
-            <button id="learning2" class="btn mx-1 col">학습하기2</button>
-            <div class="d-block d-sm-none col">확신도:</div>
-            <button id="learning3" class="btn col">학습하기3</button>
-            <div class="d-block d-sm-none col">확신도:</div>
-            <div class="w-100"></div>
-            <h5 class="text-center col d-none d-sm-block">학습한 데이터 수 :</h3>
-            <h5 class="text-center col d-none d-sm-block">학습한 데이터 수 :</h3>
-            <h5 class="text-center col d-none d-sm-block">학습한 데이터 수 :</h3>
-            <div class="w-100"></div>
-            <h3 class="text-center col d-none d-sm-block">확신도(Confidence)<div class="inner"></div>
-            </h3>
-            <h3 class="text-center col d-none d-sm-block">확신도(Confidence)<div class="inner"></div>
-            </h3>
-            <h3 class="text-center col d-none d-sm-block">확신도(Confidence)<div class="inner"></div>
-            </h3>
-        </div>
-        
-</body>
-
+      </div>
+      <div class="row justify-content-center">
+        <p id="label" class="m-2">학습데이터가 필요합니다!</p>
+      </div>
+    </div>
+    <div class="row">
+      <button id="learning1" class="btn col learning">학습하기1</button>
+      <div class="d-block d-sm-none col ">확신도:</div>
+      <button id="learning2" class="btn mx-1 col learning">학습하기2</button>
+      <div class="d-block d-sm-none col">확신도:</div>
+      <button id="learning3" class="btn col learning">학습하기3</button>
+      <div class="d-block d-sm-none col">확신도:</div>
+      <div class="w-100"></div>
+      <h5 class="text-center col d-none d-sm-block">학습한 데이터 수 :</h5>
+      <h5 class="text-center col d-none d-sm-block">학습한 데이터 수 :</h5>
+      <h5 class="text-center col d-none d-sm-block">학습한 데이터 수 :</h5>
+      <div class="w-100"></div>
+      <h3 class="text-center col d-none d-sm-block">확신도(Confidence)</h3>
+      <h3 class="text-center col d-none d-sm-block">확신도(Confidence)</h3>
+      <h3 class="text-center col d-none d-sm-block">확신도(Confidence)</h3>
+    </div>
+  </body>
 </html>
