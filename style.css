@@ -27,3 +27,19 @@ html {
 #learning3:hover {
   background-color: #ad3f28;
 }
+
+#learnedA{
+  color: #2baa5e;
+}
+
+#learnedB{
+  color: #c95ac5;
+}
+
+#learnedC{
+  color: #dd4d31;
+}
+
+.progress{
+  height: 30px;
+}
