@@ -150,7 +150,7 @@ function connectUSB() {
       return port.open();
     })
     .then(() => port.selectConfiguration(1))
-    .then(() => port.claimInterface(port.configuration.interfaces[4].interfaceNumber))
+    .then(() => port.claimInterface(2))
     .then(() =>
       port.controlTransferOut({
         requestType: "standard",
