@@ -19,6 +19,26 @@ let captureX_s = [0,0,0],captureY_s =[0,0,0];
 let imageViewers = new Array(3);
 let x_s = new Array(3),y_s = new Array(3);
 let canvases = new Array(3);
+const MICROBIT_DAP_INTERFACE = 4
+
+const controlTransferGetReport = 0x01
+const controlTransferSetReport = 0x09
+const controlTransferOutReport = 0x200
+const controlTransferInReport = 0x100
+const DAPInReportRequest =  {
+    requestType: "class",
+    recipient: "interface",
+    request: controlTransferGetReport,
+    value: controlTransferInReport,
+    index: MICROBIT_DAP_INTERFACE
+}
+const DAPOutReportRequest = {
+    requestType: "class",
+    recipient: "interface",
+    request: controlTransferSetReport,
+    value: controlTransferOutReport,
+    index: MICROBIT_DAP_INTERFACE
+}
 
 function setup() {
   for (let index = 0; index < imageViewers.length; index++) {
@@ -150,16 +170,9 @@ function connectUSB() {
       return port.open();
     })
     .then(() => port.selectConfiguration(1))
-    .then(() => port.claimInterface(2))
-    .then(() =>
-      port.controlTransferOut({
-        requestType: "standard",
-        recipient: "interface",
-        request: 0x22,
-        value: 0x01,
-        index: 0x02
-      })
-    )
+    .then(() => port.claimInterface(4))
+    .then(() => port.controlTransferOut(DAPInReportRequest,Uint8Array.from([0x83]))
+    .then(() => port.controlTransferIn(DAPInReportRequest,Uint8Array.from([0x82, 0x00, 0xc2, 0x01, 0x00])))
     .then(() => port.transferIn(4, 64))
     .then(result => {
       let decoder = new TextDecoder();
