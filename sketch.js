@@ -6,6 +6,7 @@ let video;
 let features;
 let knn;
 let labelP;
+let device;
 let deviceP;
 let port;
 let encoder = new TextEncoder();
@@ -123,7 +124,7 @@ function clearLabelC() {
 }
 function connectUSB() {
   navigator.usb
-    .requestDevice({ filters: [{ vendorId: 0x0d28, productID: 0x0204 }] }) // mircrobit vendorID,productID
+    .requestDevice({ filters: [{ vendorId: 0x0d28 }] }) // mircrobit vendorID, productID: 0x0204
     .then(device => {
       port = device;
       deviceP.html(device.productName + "가 연결되었습니다.");
@@ -149,7 +150,7 @@ function connectUSB() {
       return port.open();
     })
     .then(() => port.selectConfiguration(1))
-    .then(() => port.claimInterface(2))
+    .then(() => port.claimInterface(port.configuration.interfaces[0].interfaceNumber))
     .then(() =>
       port.controlTransferOut({
         requestType: "standard",
