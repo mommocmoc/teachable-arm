@@ -15,53 +15,35 @@ let isBitSet = false;
 let learningNums;
 let progressBars;
 let clearLabels;
-let captureX_s = [0,0,0],captureY_s =[0,0,0];
+let captureX_s = [0, 0, 0],
+  captureY_s = [0, 0, 0];
 let imageViewers = new Array(3);
-let x_s = new Array(3),y_s = new Array(3);
+let x_s = new Array(3),
+  y_s = new Array(3);
 let canvases = new Array(3);
-const MICROBIT_DAP_INTERFACE = 4
-
-const controlTransferGetReport = 0x01
-const controlTransferSetReport = 0x09
-const controlTransferOutReport = 0x200
-const controlTransferInReport = 0x100
-const DAPInReportRequest =  {
-    requestType: "class",
-    recipient: "interface",
-    request: controlTransferGetReport,
-    value: controlTransferInReport,
-    index: MICROBIT_DAP_INTERFACE
-}
-const DAPOutReportRequest = {
-    requestType: "class",
-    recipient: "interface",
-    request: controlTransferSetReport,
-    value: controlTransferOutReport,
-    index: MICROBIT_DAP_INTERFACE
-}
+let connectionTrigger = true;
 
 function setup() {
   for (let index = 0; index < imageViewers.length; index++) {
-    imageViewers[index]= select('#imageViewer'+index);
+    imageViewers[index] = select("#imageViewer" + index);
   }
   for (let index = 0; index < x_s.length; index++) {
     x_s[index] = imageViewers[index].width;
     y_s[index] = imageViewers[index].height;
   }
   for (let index = 0; index < canvases.length; index++) {
-    canvases[index] = createCanvas(x_s[index],y_s[index]);
+    canvases[index] = createCanvas(x_s[index], y_s[index]);
     canvases[index].parent(imageViewers[index]);
     canvases[index].hide();
     //TODO : Making captureImage Function
     canvases[index].mousePressed(captureImage);
-  }  
+  }
 
-  
   video = createCapture(VIDEO);
   video.size(320, 240);
   video.parent("videoDiv");
   //video.hide();
-  
+
   console.log("ml5 version:", ml5.version);
   features = ml5.featureExtractor("MobileNet", modelReady);
   knn = ml5.KNNClassifier();
@@ -79,7 +61,8 @@ function setup() {
   confidences = selectAll(".inner");
   //usb연결을 위한 버튼
   var usbButton = select("#selectUSB");
-  usbButton.mousePressed(connectUSB);
+  // usbButton.mousePressed(connectUSB);
+  usbButton.mousePressed(connectDevice);
   deviceP = select("#selectedDeviceInfo");
   //분류 안내용 P태그 엘레먼트
   labelP = select("#label");
@@ -96,6 +79,9 @@ function setup() {
   // let result = createButton("Test");
   // result.mousePressed(testEvent);
   // result.hide();
+}
+function connectDevice() {
+  uBitConnectDevice(uBitEventHandler);
 }
 function testEvent() {
   //Microbit interface 4, encoding해서 message 보내기
@@ -142,6 +128,7 @@ function clearLabelC() {
     learningNums[5].html(num);
   }
 }
+
 function connectUSB() {
   navigator.usb
     .requestDevice({ filters: [{ vendorId: 0x0d28 }] }) // mircrobit vendorID, productID: 0x0204
@@ -171,8 +158,6 @@ function connectUSB() {
     })
     .then(() => port.selectConfiguration(1))
     .then(() => port.claimInterface(4))
-    .then(() => port.controlTransferOut(DAPInReportRequest,Uint8Array.from([0x83]))
-    .then(() => port.controlTransferIn(DAPInReportRequest,Uint8Array.from([0x82, 0x00, 0xc2, 0x01, 0x00])))
     .then(() => port.transferIn(4, 64))
     .then(result => {
       let decoder = new TextDecoder();
@@ -274,7 +259,8 @@ function goClassify() {
       ) {
         setTimeout(() => {
           console.log("A!");
-          port.transferOut(4, encoder.encode("0\n"));
+          uBitSend(connectedDevices[0],"0");
+          // port.transferOut(4, encoder.encode("0\n"));
         }, 500);
         trigger = false;
       } else if (
@@ -284,7 +270,8 @@ function goClassify() {
       ) {
         setTimeout(() => {
           console.log("B!");
-          port.transferOut(4, encoder.encode("1\n"));
+          uBitSend(connectedDevices[0], "1");
+          // port.transferOut(4, encoder.encode("1\n"));
         }, 500);
         trigger = false;
         // port.transferIn(4, encoder.encode("1"));
@@ -295,7 +282,8 @@ function goClassify() {
       ) {
         setTimeout(() => {
           console.log("C!");
-          port.transferOut(4, encoder.encode("2\n"));
+          uBitSend(connectedDevices[0], "2");
+          // port.transferOut(4, encoder.encode("2\n"));
         }, 500);
         trigger = false;
       } else {
@@ -319,6 +307,26 @@ function resultEvent() {
 }
 
 function draw() {
+  if (connectedDevices.length > 0 && connectionTrigger) {
+    deviceP.html(connectedDevices[0].productName + "가 연결되었습니다.");
+    for (let index = 0; index < buttons.length; index++) {
+      const element = buttons[index];
+      element.removeAttribute("disabled");
+      element.html("학습하기" + (index + 1));
+    }
+    buttons[0].mousePressed(learningA);
+    buttons[1].mousePressed(learningB);
+    buttons[2].mousePressed(learningC);
+    buttons[0].touchStarted(learningA);
+    buttons[1].touchStarted(learningB);
+    buttons[2].touchStarted(learningC);
+    //알림 삭제
+    let alert = select(".alert");
+    alert.hide();
+    //학습이 필요하다고 알려줌
+    labelP.show();
+    connectionTrigger = false;
+  }
   if (knn.getNumLabels() > 2) {
     goClassify();
   }
