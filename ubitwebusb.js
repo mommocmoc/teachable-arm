@@ -123,6 +123,7 @@ function uBitOpenDevice(device, callback) {
     .open()
     .then(() => device.selectConfiguration(1))
     .then(() => device.claimInterface(4))
+    // .then(() => device.claimInterface(2))
     .then(() =>
       device.controlTransferIn(
         DAPInReportRequest,
