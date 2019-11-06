@@ -259,8 +259,8 @@ function goClassify() {
       ) {
         setTimeout(() => {
           console.log("A!");
-          uBitSend(connectedDevices[0],"0");
-          // port.transferOut(4, encoder.encode("0\n"));
+          //uBitSend(connectedDevices[0],"0");
+           connectedDevices[0].transferOut(4, encoder.encode("0\n"));
         }, 500);
         trigger = false;
       } else if (
@@ -270,8 +270,8 @@ function goClassify() {
       ) {
         setTimeout(() => {
           console.log("B!");
-          uBitSend(connectedDevices[0], "1");
-          // port.transferOut(4, encoder.encode("1\n"));
+          //uBitSend(connectedDevices[0], "1");
+          connectedDevices[0].transferOut(4, encoder.encode("1\n"));
         }, 500);
         trigger = false;
         // port.transferIn(4, encoder.encode("1"));
@@ -282,8 +282,8 @@ function goClassify() {
       ) {
         setTimeout(() => {
           console.log("C!");
-          uBitSend(connectedDevices[0], "2");
-          // port.transferOut(4, encoder.encode("2\n"));
+          //uBitSend(connectedDevices[0], "2");
+          connectedDevices[0].transferOut(4, encoder.encode("2\n"));
         }, 500);
         trigger = false;
       } else {
