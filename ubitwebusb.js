@@ -180,40 +180,33 @@ function uBitConnectDevice(callback) {
         .catch( () => callback("connection failure", null, null))
 }
 
-var connectedDevices = [];
-
-function uBitEventHandler(reason, device, data) {
-  switch (reason) {
-    case "connected":
-      console.log("Connected!");
-      connectedDevices.push(device);
-      break;
-    case "disconnected":
-      console.log("<b>Disconnected</b>");
-      connectedDevices = connectedDevices.filter(v => v != device);
-      break;
-    case "connection failure":
-      console.log("<b>Connection Failure</b>");
-      break;
-    case "error":
-      console.log("<b>Error</b>");
-      break;
-    case "console":
-      console.log("Console Data: " + data.data);
-      break;
-    case "graph-event":
-      console.log(
-        `Graph Event:  ${data.data} (for ${data.graph}${
-          data.series.length ? " / series " + data.series : ""
-        })`
-      );
-      break;
-    case "graph-data":
-      console.log(
-        `Graph Data: ${data.data} (for ${data.graph}${
-          data.series.length ? " / series " + data.series : ""
-        })`
-      );
-      break;
-  }
-}
+ // List of connected devices (a single value could be used if only connecting to one device)
+    var connectedDevices = []
+    // Example event call-back handler
+    function uBitEventHandler(reason, device, data) {
+        switch(reason) {
+            case "connected":
+                console.log("Connected!")
+                connectedDevices.push(device)
+                break
+            case "disconnected":
+                console.log("Disconnected")
+                connectedDevices = connectedDevices.filter( v => v != device)
+                break
+            case "connection failure":
+                console.error("<b>Connection Failure</b>")
+                break
+            case "error":
+                console.error("<b>Error</b>")                
+                break
+            case "console":
+                console.log("Console Data: " + data.data)
+                break
+//             case "graph-event":
+//                 console.log(`Graph Event:  ${data.data} (for ${data.graph}/${data.series})`)
+//                 break
+//             case "graph-data":
+//                 console.log(`Graph Data: ${data.data} (for ${data.graph}/${data.series})`)
+//                 break
+        }
+    }
