@@ -269,7 +269,7 @@ function goClassify() {
         trigger === true
       ) {
         console.log("A!");
-        uBitSend(connectedDevices[0], "A");
+        uBitSend(connectedDevices[0], "0");
         //  port.transferOut(4, encoder.encode("0\n"));
         //  connectedDevices[0].transferOut(4, encoder.encode("0\n"));
 
@@ -280,7 +280,7 @@ function goClassify() {
         trigger === true
       ) {
         console.log("B!");
-        uBitSend(connectedDevices[0], "B");
+        uBitSend(connectedDevices[0], "1");
         // port.transferOut(4, encoder.encode("1\n"));
         // connectedDevices[0].transferOut(4, encoder.encode("1\n"));
 
@@ -292,7 +292,7 @@ function goClassify() {
         trigger === true
       ) {
         console.log("C!");
-        uBitSend(connectedDevices[0], "C");
+        uBitSend(connectedDevices[0], "2");
         // port.transferOut(4, encoder.encode("2\n"));
         // connectedDevices[0].transferOut(4, encoder.encode("2\n"));
         goClassify();
